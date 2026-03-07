@@ -1,26 +1,291 @@
 @import "tailwindcss";
 
+/**
+ * Thinkergate Theme Configuration
+ * 
+ * Purple & Cream Academic Theme
+ * - Primary: Deep Purple (#3B1E54) - Academic sophistication
+ * - Primary Hover: Medium Purple (#9B7EBD) - Interactive states
+ * - Primary Light: Light Purple (#D4BEE4) - Subtle backgrounds
+ * - Accent Light: Cream (#FCEFCB) - Soft highlights
+ * - Background: Clean white with subtle grays
+ * - Text: High contrast for readability
+ */
+
 :root {
+  /* Base Colors - Update these to change theme globally */
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Primary Theme - Purple palette */
+  --primary: #3B1E54;
+  --primary-hover: #9B7EBD;
+  --primary-active: #9B7EBD;
+  --primary-light: #D4BEE4;
+  --primary-focus: #9B7EBD;
+  
+  /* Accent Theme - Cream palette */
+  --accent: #9B7EBD;
+  --accent-hover: #3B1E54;
+  --accent-light: #FCEFCB;
+  
+  /* Status Colors */
+  --success: #10b981;
+  --success-light: #d1fae5;
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+  --error: #ef4444;
+  --error-light: #fee2e2;
+  
+  /* Neutral Grays */
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Dark mode theme */
+[data-theme="dark"] {
+  /* Dark mode keeps brand but uses light theme's *secondary/accent* as primary */
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  /* Light theme secondary (accent) palette applied to primary here */
+  --primary: #9B7EBD;
+  --primary-hover: #3B1E54;
+  --primary-active: #3B1E54;
+  --primary-light: #FCEFCB;
+  --primary-focus: #9B7EBD;
+  /* Accent stays aligned with secondary as well */
+  --accent: #9B7EBD;
+  --accent-hover: #3B1E54;
+  --accent-light: #FCEFCB;
+  --gray-50: #1e293b;
+  --gray-100: #334155;
+  --gray-200: #475569;
+  --gray-300: #64748b;
+  --gray-400: #94a3b8;
+  --gray-500: #cbd5e1;
+  --gray-600: #e2e8f0;
+  --gray-700: #f1f5f9;
+  --gray-800: #f8fafc;
+  --gray-900: #ffffff;
+}
+
+[data-theme="dark"] body {
+  background: #0f172a;
+  color: #f1f5f9;
+}
+
+/* Hide scrollbar but keep scrolling */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+[data-theme="dark"] h1, [data-theme="dark"] .h1,
+[data-theme="dark"] h2, [data-theme="dark"] .h2,
+[data-theme="dark"] h3, [data-theme="dark"] .h3,
+[data-theme="dark"] h4, [data-theme="dark"] .h4 {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] p, [data-theme="dark"] .body {
+  color: #cbd5e1;
+}
+
+/* Dark mode utility classes */
+[data-theme="dark"] .bg-white {
+  background-color: #1e293b !important;
+}
+
+[data-theme="dark"] .bg-gray-50 {
+  background-color: #0f172a !important;
+}
+
+[data-theme="dark"] .bg-gray-100 {
+  background-color: #1e293b !important;
+}
+
+[data-theme="dark"] .text-gray-900 {
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .text-gray-700 {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .text-gray-600 {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .text-gray-500 {
+  color: #64748b !important;
+}
+
+[data-theme="dark"] .border-gray-200 {
+  border-color: #334155 !important;
+}
+
+[data-theme="dark"] .border-gray-300 {
+  border-color: #475569 !important;
+}
+
+[data-theme="dark"] .hover\:bg-gray-50:hover {
+  background-color: #1e293b !important;
+}
+
+[data-theme="dark"] .hover\:bg-gray-100:hover {
+  background-color: #334155 !important;
+}
+
+/**
+ * Typography Base Styles
+ * 
+ * Professional academic typography scale
+ * - Inter (ONLY font) for all text
+ * - Clean, modern, academic UI with zero distraction
+ */
+
+body {
+  background: #ffffff;
+  color: #171717;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.875rem; /* text-sm base */
+  line-height: 1.625; /* leading-relaxed */
+}
+
+/* Typography Scale - Headings (Inter Only) */
+h1, .h1 {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 600; /* font-semibold */
+  line-height: 1.25; /* leading-tight */
+  color: #111827; /* gray-900 */
+}
+
+@media (min-width: 768px) {
+  h1, .h1 {
+    font-size: 2.25rem; /* text-4xl */
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+h2, .h2 {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 600; /* font-semibold */
+  line-height: 1.25; /* leading-tight */
+  color: #111827; /* gray-900 */
+}
+
+@media (min-width: 768px) {
+  h2, .h2 {
+    font-size: 1.875rem; /* text-3xl */
+  }
+}
+
+h3, .h3 {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 500; /* font-medium */
+  line-height: 1.375; /* leading-snug */
+  color: #111827; /* gray-900 */
+}
+
+@media (min-width: 768px) {
+  h3, .h3 {
+    font-size: 1.5rem; /* text-2xl */
+  }
+}
+
+h4, .h4 {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 500; /* font-medium */
+  line-height: 1.375; /* leading-snug */
+  color: #111827; /* gray-900 */
+}
+
+/* Typography Scale - Body Text */
+p, .body {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 400; /* font-normal */
+  line-height: 1.625; /* leading-relaxed */
+  color: #374151; /* gray-700 */
+}
+
+@media (min-width: 768px) {
+  p, .body {
+    font-size: 1rem; /* text-base */
+  }
+}
+
+/* Secondary Text */
+.text-secondary, .secondary {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.875rem; /* text-sm */
+  color: #4b5563; /* gray-600 */
+}
+
+/* Muted Text */
+.text-muted, .muted {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.75rem; /* text-xs */
+  color: #6b7280; /* gray-500 */
+}
+
+.text-muted-foreground {
+  color: #6b7280; /* gray-500 */
+}
+
+/* Captions */
+.caption {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.75rem; /* text-xs */
+  color: #6b7280; /* gray-500 */
+}
+
+/* UI Elements */
+button, .btn {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 500; /* font-medium */
+  letter-spacing: 0.025em; /* tracking-wide */
+  border: none;
+  outline: none;
+}
+
+/* Remove all borders from ghost buttons in PostActions */
+button[class*="border-0"] {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+input, textarea, select {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.875rem; /* text-sm */
+}
+
+label {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.75rem; /* text-xs */
+  text-transform: uppercase;
+  letter-spacing: 0.05em; /* tracking-wide */
 }
