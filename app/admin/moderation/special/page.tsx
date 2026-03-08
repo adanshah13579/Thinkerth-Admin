@@ -125,7 +125,14 @@ export default function SpecialCasesPage() {
     },
   });
 
-  const moderators = moderatorsData ?? [];
+  // Cache may hold array (this page) or { moderators, pending_queue_total } (assign page); normalize to array
+  const moderators = Array.isArray(moderatorsData)
+    ? moderatorsData
+    : Array.isArray((moderatorsData as { moderators?: ModeratorRow[] })?.moderators)
+      ? (moderatorsData as { moderators: ModeratorRow[] }).moderators
+      : Array.isArray((moderatorsData as { data?: ModeratorRow[] })?.data)
+        ? (moderatorsData as { data: ModeratorRow[] }).data
+        : [];
 
   const handleAssignSpecial = () => {
     if (!assignPostId || !assignModeratorId) return;
